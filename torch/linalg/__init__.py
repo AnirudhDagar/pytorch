@@ -14,6 +14,11 @@ common_notes = {
 # Note: This not only adds doc strings for functions in the linalg namespace, but
 # also connects the torch.linalg Python namespace to the torch._C._linalg builtins.
 
+cross = _add_docstr(_linalg.linalg_cross, r"""
+
+Alias for `torch.cross`
+"""
+
 cholesky = _add_docstr(_linalg.linalg_cholesky, r"""
 linalg.cholesky(A, *, out=None) -> Tensor
 
