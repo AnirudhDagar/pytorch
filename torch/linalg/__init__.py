@@ -17,7 +17,7 @@ common_notes = {
 cross = _add_docstr(_linalg.linalg_cross, r"""
 
 Alias for `torch.cross`
-"""
+""")
 
 cholesky = _add_docstr(_linalg.linalg_cholesky, r"""
 linalg.cholesky(A, *, out=None) -> Tensor
