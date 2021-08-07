@@ -6131,6 +6131,14 @@
   dispatch:
     CPU, CUDA: cross
 
+# torch.linalg.cross, alias for torch.cross
+- func: linalg_cross.out(Tensor self, Tensor other, int? dim=None, *, Tensor(a!) out) -> Tensor(a!)
+  python_module: linalg
+
+- func: linalg_cross(Tensor self, Tensor other, int? dim=None) -> Tensor
+  python_module: linalg
+  variants: method, function
+
 - func: triu.out(Tensor self, int diagonal=0, *, Tensor(a!) out) -> Tensor(a!)
   dispatch:
     CPU: triu_cpu_out

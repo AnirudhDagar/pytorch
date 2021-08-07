@@ -50,4 +50,12 @@ Tensor & cross_out(const Tensor & input, const Tensor & other, const c10::option
   return out;
 }
 
+Tensor linalg_cross(const Tensor & input, const Tensor & other, const c10::optional<int64_t> dimension) {
+  return native::cross(input, other, dimension);
+}
+
+Tensor & linalg_cross_out(const Tensor & input, const Tensor & other, const c10::optional<int64_t> dimension, Tensor & out) {
+ return native::cross_out(input, other, dimension, out);
+}
+
 }} // namespace at::native
