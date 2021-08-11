@@ -70,6 +70,7 @@ Matrix Products
     matrix_power
     multi_dot
     householder_product
+    cross
 
 Tensor Operations
 -----------------

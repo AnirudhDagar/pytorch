@@ -8,19 +8,19 @@ namespace at { namespace native {
 
 DEFINE_DISPATCH(cross_stub);
 
-Tensor cross(const Tensor & input, const Tensor & other, const c10::optional<int64_t> dimension) {
+Tensor linalg_cross(const Tensor & input, const Tensor & other, const c10::optional<int64_t> dimension) {
   Tensor out = at::empty_like(input, LEGACY_CONTIGUOUS_MEMORY_FORMAT);
-  native::cross_out(input, other, dimension, out);
+  native::linalg_cross_out(input, other, dimension, out);
   return out;
 }
 
-Tensor & cross_out(const Tensor & input, const Tensor & other, const c10::optional<int64_t> dimension, Tensor & out) {
+Tensor & linalg_cross_out(const Tensor & input, const Tensor & other, const c10::optional<int64_t> dimension, Tensor & out) {
   auto device_res = input.device().type();
-  TORCH_CHECK(device_res == kCPU || device_res == kCUDA, "cross only supports CPU and CUDA devices, out got: ", device_res);
+  TORCH_CHECK(device_res == kCPU || device_res == kCUDA, "linalg.cross only supports CPU and CUDA devices, out got: ", device_res);
   auto device1 = input.device().type();
-  TORCH_CHECK(device1 == kCPU || device1 == kCUDA, "cross only supports CPU and CUDA devices, input got: ", device1);
+  TORCH_CHECK(device1 == kCPU || device1 == kCUDA, "linalg.cross only supports CPU and CUDA devices, input got: ", device1);
   auto device2 = other.device().type();
-  TORCH_CHECK(device2 == kCPU || device2 == kCUDA, "cross only supports CPU and CUDA devices, other got: ", device2);
+  TORCH_CHECK(device2 == kCPU || device2 == kCUDA, "linalg.cross only supports CPU and CUDA devices, other got: ", device2);
   TORCH_CHECK(device_res == device1, "out and input must have the same device type. out: ", device_res, " input: ", device1);
   TORCH_CHECK(device1 == device2, "input and other must have the same device type. input: ", device1, " other: ", device2);
   TORCH_CHECK(!out.is_cuda() || out.get_device() == input.get_device(), "device of out (", input.get_device(), ") must match device of input (", other.get_device(), ")");
@@ -50,12 +50,13 @@ Tensor & cross_out(const Tensor & input, const Tensor & other, const c10::option
   return out;
 }
 
-Tensor linalg_cross(const Tensor & input, const Tensor & other, const c10::optional<int64_t> dimension) {
-  return native::cross(input, other, dimension);
+// cross is an alias to linalg.cross
+Tensor cross(const Tensor & input, const Tensor & other, const c10::optional<int64_t> dimension) {
+  return native::linalg_cross(input, other, dimension);
 }
 
-Tensor & linalg_cross_out(const Tensor & input, const Tensor & other, const c10::optional<int64_t> dimension, Tensor & out) {
- return native::cross_out(input, other, dimension, out);
+Tensor & cross_out(const Tensor & input, const Tensor & other, const c10::optional<int64_t> dimension, Tensor & out) {
+ return native::linalg_cross_out(input, other, dimension, out);
 }
 
 }} // namespace at::native

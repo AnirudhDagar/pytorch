@@ -5700,9 +5700,10 @@ op_db: List[OpInfo] = [
            supports_forward_ad=True,
            # JIT test not working for tensor kwargs (https://github.com/pytorch/pytorch/issues/58507)
            skips=(SkipInfo('TestJit', 'test_variant_consistency_jit'),)),
-    OpInfo('cross',
-           aliases=('linalg.cross',),
+    OpInfo('linalg.cross',
+           aliases=('cross',),
            dtypes=all_types_and_complex(),
+           aten_name='linalg_cross',
            dtypesIfCUDA=all_types_and_complex_and(torch.half),
            sample_inputs_func=sample_inputs_cross,
            supports_forward_ad=True,

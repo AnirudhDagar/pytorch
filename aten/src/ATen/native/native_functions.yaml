@@ -6122,23 +6122,6 @@
   device_check: NoCheck
   device_guard: False
 
-- func: cross.out(Tensor self, Tensor other, int? dim=None, *, Tensor(a!) out) -> Tensor(a!)
-  dispatch:
-    CPU, CUDA: cross_out
-
-- func: cross(Tensor self, Tensor other, int? dim=None) -> Tensor
-  variants: method, function
-  dispatch:
-    CPU, CUDA: cross
-
-# torch.linalg.cross, alias for torch.cross
-- func: linalg_cross.out(Tensor self, Tensor other, int? dim=None, *, Tensor(a!) out) -> Tensor(a!)
-  python_module: linalg
-
-- func: linalg_cross(Tensor self, Tensor other, int? dim=None) -> Tensor
-  python_module: linalg
-  variants: function
-
 - func: triu.out(Tensor self, int diagonal=0, *, Tensor(a!) out) -> Tensor(a!)
   dispatch:
     CPU: triu_cpu_out
@@ -10197,6 +10180,23 @@
 - func: linalg_cholesky.out(Tensor self, *, Tensor(a!) out) -> Tensor(a!)
   python_module: linalg
   variants: function
+
+- func: linalg_cross(Tensor self, Tensor other, int? dim=None) -> Tensor
+  python_module: linalg
+  variants: function
+  dispatch:
+    CPU, CUDA: linalg_cross
+
+- func: linalg_cross.out(Tensor self, Tensor other, int? dim=None, *, Tensor(a!) out) -> Tensor(a!)
+  python_module: linalg
+  dispatch:
+    CPU, CUDA: linalg_cross_out
+
+# torch.cross, alias for torch.linalg.cross
+- func: cross(Tensor self, Tensor other, int? dim=None) -> Tensor
+  variants: method, function
+
+- func: cross.out(Tensor self, Tensor other, int? dim=None, *, Tensor(a!) out) -> Tensor(a!)
 
 - func: linalg_det(Tensor self) -> Tensor
   python_module: linalg
